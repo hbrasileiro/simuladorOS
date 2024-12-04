@@ -73,6 +73,78 @@ RENOMEAR_ARQUIVO /diretorio1 arquivo1.txt arquivo2.txt
 
 ---
 
+## **Como Utilizar o Programa**
+
+### **1. Compilação**
+Certifique-se de que você possui o compilador Java instalado. Para compilar o programa, utilize os seguintes comandos no terminal:
+```bash
+javac SimuladorSistemaArquivos.java Shell.java
+```
+
+### **2. Execução**
+Após a compilação, execute o programa com o comando:
+```bash
+java Shell
+```
+
+### **3. Operações Disponíveis**
+No ambiente interativo (Shell), você pode usar os seguintes comandos:
+
+#### **Diretórios**
+- Criar um diretório:
+  ```
+  criar_diretorio <nomeDiretorio>
+  ```
+
+- Apagar um diretório:
+  ```
+  apagar_diretorio <nomeDiretorio>
+  ```
+
+- Renomear um diretório:
+  ```
+  renomear_diretorio <nomeAntigo> <nomeNovo>
+  ```
+
+- Listar todos os diretórios:
+  ```
+  listar_diretorios
+  ```
+
+#### **Arquivos**
+- Criar um arquivo:
+  ```
+  criar_arquivo <nomeDiretorio> <nomeArquivo>
+  ```
+
+- Apagar um arquivo:
+  ```
+  apagar_arquivo <nomeDiretorio> <nomeArquivo>
+  ```
+
+- Copiar um arquivo para outro diretório:
+  ```
+  copiar_arquivo <dirOrigem> <nomeArquivo> <dirDestino>
+  ```
+
+- Renomear um arquivo:
+  ```
+  renomear_arquivo <nomeDiretorio> <nomeAntigo> <nomeNovo>
+  ```
+
+- Listar arquivos de um diretório:
+  ```
+  listar_arquivos <nomeDiretorio>
+  ```
+
+### **4. Encerrar o Programa**
+Para sair do shell, utilize o comando:
+```
+sair
+```
+
+---
+
 ## **Resultados Esperados**
 
 Espera-se que o simulador forneça insights sobre o funcionamento interno de um sistema de arquivos, incluindo:
