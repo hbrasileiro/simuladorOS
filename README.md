@@ -32,8 +32,7 @@ Neste simulador, implementamos um journaling simplificado para registrar operaç
 Para representar o sistema de arquivos, utilizamos as seguintes estruturas de dados:
 - Um `HashMap` em memória, onde:
   - A **chave** representa o nome de um diretório.
-  - O **valor** é uma lista de arquivos contidos no diretório.
-- Classes Java para abstrair os conceitos de arquivos e diretórios.
+  - O **valor** é uma instância da classe `Diretorio`, que contém uma lista de arquivos.
 
 ### **Journaling**
 O journaling foi implementado utilizando um arquivo de log chamado `journal.log`. Esse arquivo armazena cada operação realizada no sistema, garantindo que as mudanças possam ser reprocessadas ou verificadas em caso de falhas.
@@ -54,12 +53,17 @@ Esta classe principal implementa o simulador do sistema de arquivos. Ela gerenci
 
 Também gerencia o carregamento e a persistência do arquivo de journaling.
 
-### **Classes `File` e `Directory`**
-Embora não sejam utilizadas explicitamente neste simulador, esses conceitos são representados através de:
-- Diretórios como **chaves** do `HashMap`.
-- Arquivos como **valores** na lista associada a cada diretório.
+### **Classe `Arquivo`**
+Representa um arquivo no sistema de arquivos. Cada arquivo possui um nome e pode ser manipulado com métodos como renomear.
 
-### **Classe `Journal`**
+### **Classe `Diretorio`**
+Representa um diretório, que contém:
+- Um nome.
+- Uma lista de arquivos.
+
+Métodos na classe `Diretorio` permitem adicionar, remover e listar arquivos.
+
+### **Journaling**
 O arquivo de log registra todas as operações realizadas no simulador. As entradas seguem o formato:
 ```
 COMANDO [ARGUMENTOS]
@@ -78,7 +82,7 @@ RENOMEAR_ARQUIVO /diretorio1 arquivo1.txt arquivo2.txt
 ### **1. Compilação**
 Certifique-se de que você possui o compilador Java instalado. Para compilar o programa, utilize os seguintes comandos no terminal:
 ```bash
-javac SimuladorSistemaArquivos.java Shell.java
+javac SimuladorSistemaArquivos.java Arquivo.java Diretorio.java Shell.java
 ```
 
 ### **2. Execução**
@@ -122,14 +126,14 @@ No ambiente interativo (Shell), você pode usar os seguintes comandos:
   apagar_arquivo <nomeDiretorio> <nomeArquivo>
   ```
 
-- Copiar um arquivo para outro diretório:
-  ```
-  copiar_arquivo <dirOrigem> <nomeArquivo> <dirDestino>
-  ```
-
 - Renomear um arquivo:
   ```
   renomear_arquivo <nomeDiretorio> <nomeAntigo> <nomeNovo>
+  ```
+
+- Copiar um arquivo para outro diretório:
+  ```
+  copiar_arquivo <dirOrigem> <nomeArquivo> <dirDestino>
   ```
 
 - Listar arquivos de um diretório:
