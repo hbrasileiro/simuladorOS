@@ -3,156 +3,121 @@
 
 ## **Metodologia**
 
-O simulador foi desenvolvido em linguagem de programação Java. Ele utiliza chamadas de métodos com os devidos parâmetros para executar operações relacionadas a um sistema de arquivos. Cada método implementa uma funcionalidade equivalente a comandos básicos de sistemas operacionais, como criar, apagar, renomear e listar arquivos e diretórios.
-
-O programa executa cada funcionalidade e exibe o resultado na tela quando necessário, fornecendo uma experiência interativa e simulada de um sistema de arquivos.
+Este simulador foi desenvolvido em Java, permitindo a manipulação de arquivos e diretórios de forma semelhante a um sistema operacional real. O sistema utiliza um arquivo chamado `sistema.dat` para armazenar o estado do sistema de arquivos, implementando suporte a **Journaling** para garantir a integridade dos dados.
 
 ---
 
 ## **Parte 1: Introdução ao Sistema de Arquivos com Journaling**
 
-### **Descrição do Sistema de Arquivos**
-Um **sistema de arquivos** é uma estrutura lógica que organiza e gerencia os dados armazenados em dispositivos de armazenamento, como discos rígidos e SSDs. Ele permite que arquivos sejam criados, organizados em diretórios, renomeados, movidos e excluídos, além de oferecer métodos para proteger a integridade dos dados.
+### **O que é um Sistema de Arquivos?**
+Um sistema de arquivos é uma estrutura utilizada por sistemas operacionais para armazenar e organizar dados em dispositivos de armazenamento, como discos rígidos ou SSDs.
 
 ### **Journaling**
-O **journaling** é uma técnica usada em sistemas de arquivos modernos para garantir a integridade dos dados. Ele registra todas as operações em um log antes de aplicá-las ao sistema real, prevenindo corrupção de dados em caso de falhas, como quedas de energia.
-
-Existem diferentes tipos de journaling:
-- **Write-ahead logging**: Registra operações antes de aplicá-las.
-- **Log-structured**: Utiliza uma abordagem de escrita sequencial para otimizar o desempenho em discos.
-- **Metadata-only journaling**: Registra apenas alterações na estrutura de metadados, como criação de diretórios.
-
-Neste simulador, implementamos um journaling simplificado para registrar operações como criação, renomeação e exclusão de arquivos e diretórios.
+O journaling registra as operações realizadas no sistema de arquivos para evitar inconsistências em caso de falhas. Este sistema implementa o journaling básico, salvando todas as operações no arquivo `sistema.dat`.
 
 ---
 
 ## **Parte 2: Arquitetura do Simulador**
 
 ### **Estrutura de Dados**
-Para representar o sistema de arquivos, utilizamos as seguintes estruturas de dados:
-- Um `HashMap` em memória, onde:
-  - A **chave** representa o nome de um diretório.
-  - O **valor** é uma instância da classe `Diretorio`, que contém uma lista de arquivos.
+- **Diretórios**: Representados pela classe `Diretorio`.
+- **Arquivos**: Representados pela classe `Arquivo`.
+- **Mapa Global**: O sistema utiliza um mapa (`HashMap`) para armazenar a estrutura completa de diretórios e arquivos.
 
 ### **Journaling**
-O journaling foi implementado utilizando um arquivo de log chamado `journal.log`. Esse arquivo armazena cada operação realizada no sistema, garantindo que as mudanças possam ser reprocessadas ou verificadas em caso de falhas.
-
-As operações registradas no log incluem:
-- Criação e exclusão de arquivos e diretórios.
-- Renomeação de arquivos e diretórios.
-- Cópia de arquivos.
+As operações realizadas, como criar, apagar ou copiar arquivos e diretórios, são registradas no arquivo `sistema.dat`. Esse arquivo também contém o estado completo do sistema de arquivos.
 
 ---
 
-## **Parte 3: Implementação em Java**
+## **Parte 3: Funcionalidades Implementadas**
 
-### **Classe `SimuladorSistemaArquivos`**
-Esta classe principal implementa o simulador do sistema de arquivos. Ela gerencia as operações básicas, como:
-- Criar, apagar, renomear e listar arquivos e diretórios.
-- Copiar arquivos entre diretórios.
+### **Operações Básicas**
+- **Criar Diretórios**: `criar_diretorio <nome_do_diretorio>`
+- **Criar Arquivos**: `criar_arquivo <path_do_arquivo>`
+- **Apagar Arquivos**: `apagar_arquivo <path_do_arquivo>`
+- **Copiar Arquivos**: `copiar_arquivo <path_do_arquivo> <diretorio_destino>`
+- **Listar Diretórios**: `listar_diretorios <path_do_diretorio>`
+- **Listar Arquivos**: `listar_arquivos <path_do_diretorio>`
 
-Também gerencia o carregamento e a persistência do arquivo de journaling.
+### **Navegação**
+- **Entrar em Diretórios**: `cd <nome_do_diretorio>`
+- **Sair de Diretórios**: `cd ..`
+- **Exibir Diretório Atual**: O prompt exibe o diretório onde você está localizado.
 
-### **Classe `Arquivo`**
-Representa um arquivo no sistema de arquivos. Cada arquivo possui um nome e pode ser manipulado com métodos como renomear.
-
-### **Classe `Diretorio`**
-Representa um diretório, que contém:
-- Um nome.
-- Uma lista de arquivos.
-
-Métodos na classe `Diretorio` permitem adicionar, remover e listar arquivos.
-
-### **Journaling**
-O arquivo de log registra todas as operações realizadas no simulador. As entradas seguem o formato:
-```
-COMANDO [ARGUMENTOS]
-```
-Por exemplo:
-```
-CRIAR_DIRETORIO /diretorio1
-CRIAR_ARQUIVO /diretorio1 arquivo1.txt
-RENOMEAR_ARQUIVO /diretorio1 arquivo1.txt arquivo2.txt
-```
+### **Comandos Adicionais**
+- **Limpar Tela**: `clear`
+- **Help**: `help` exibe todos os comandos disponíveis.
 
 ---
 
-## **Como Utilizar o Programa**
+## **Parte 4: Uso do Arquivo `sistema.dat`**
 
-### **1. Compilação**
-Certifique-se de que você possui o compilador Java instalado. Para compilar o programa, utilize os seguintes comandos no terminal:
+### **Função do Arquivo**
+- Armazena a estrutura completa de diretórios e arquivos.
+- Registra todas as operações realizadas no sistema (journaling).
+
+### **Como Funciona**
+- O arquivo é atualizado automaticamente sempre que uma operação é realizada.
+- Ao iniciar o programa, o sistema é restaurado a partir do `sistema.dat`.
+
+### **Formato**
+O `sistema.dat` utiliza serialização binária, o que o torna não legível diretamente por humanos.
+
+---
+
+## **Parte 5: Como Utilizar o Programa**
+
+### **Compilação**
+1. Compile os arquivos Java:
+   ```bash
+   javac SimuladorSistemaArquivos.java Diretorio.java Arquivo.java Shell.java
+   ```
+
+2. Execute o programa:
+   ```bash
+   java Shell
+   ```
+
+### **Exemplos de Comandos**
+
+#### **Criar Diretórios**
 ```bash
-javac SimuladorSistemaArquivos.java Arquivo.java Diretorio.java Shell.java
+/ > criar_diretorio teste
 ```
 
-### **2. Execução**
-Após a compilação, execute o programa com o comando:
+#### **Criar Arquivos**
 ```bash
-java Shell
+/ > criar_arquivo teste.txt
 ```
 
-### **3. Operações Disponíveis**
-No ambiente interativo (Shell), você pode usar os seguintes comandos:
-
-#### **Diretórios**
-- Criar um diretório:
-  ```
-  criar_diretorio <nomeDiretorio>
-  ```
-
-- Apagar um diretório:
-  ```
-  apagar_diretorio <nomeDiretorio>
-  ```
-
-- Renomear um diretório:
-  ```
-  renomear_diretorio <nomeAntigo> <nomeNovo>
-  ```
-
-- Listar todos os diretórios:
-  ```
-  listar_diretorios
-  ```
-
-#### **Arquivos**
-- Criar um arquivo:
-  ```
-  criar_arquivo <nomeDiretorio> <nomeArquivo>
-  ```
-
-- Apagar um arquivo:
-  ```
-  apagar_arquivo <nomeDiretorio> <nomeArquivo>
-  ```
-
-- Renomear um arquivo:
-  ```
-  renomear_arquivo <nomeDiretorio> <nomeAntigo> <nomeNovo>
-  ```
-
-- Copiar um arquivo para outro diretório:
-  ```
-  copiar_arquivo <dirOrigem> <nomeArquivo> <dirDestino>
-  ```
-
-- Listar arquivos de um diretório:
-  ```
-  listar_arquivos <nomeDiretorio>
-  ```
-
-### **4. Encerrar o Programa**
-Para sair do shell, utilize o comando:
+#### **Apagar Arquivos**
+```bash
+/ > apagar_arquivo teste.txt
 ```
-sair
+
+#### **Copiar Arquivos**
+```bash
+/ > copiar_arquivo teste.txt /novo_diretorio
+```
+
+#### **Listar Diretórios**
+```bash
+/ > listar_diretorios
+```
+
+#### **Navegação**
+```bash
+/ > cd teste
+/teste > cd ..
 ```
 
 ---
 
-## **Resultados Esperados**
+## **Parte 6: Resultados Esperados**
 
-Espera-se que o simulador forneça insights sobre o funcionamento interno de um sistema de arquivos, incluindo:
-- Como arquivos e diretórios são gerenciados.
-- Como o journaling garante a integridade dos dados em cenários de falhas.
+- **Operações Intuitivas**: Os comandos funcionam de maneira similar a um terminal de sistema operacional.
+- **Persistência**: O estado do sistema é salvo em `sistema.dat` e restaurado automaticamente.
+- **Journaling**: Todas as operações são registradas, garantindo a integridade do sistema.
 
-Este simulador também serve como uma introdução prática aos conceitos de sistemas operacionais, permitindo experimentar operações básicas de um sistema de arquivos e entender os princípios do journaling.
+---
+
