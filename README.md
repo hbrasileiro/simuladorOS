@@ -1,8 +1,8 @@
 
 # Simulador de Sistema de Arquivos com Journaling
 
-## Francisco Hugo B. H. Fernandes
-## Marcelo Feliciano Figueiredo
+### Francisco Hugo B. H. Fernandes
+### Marcelo Feliciano Figueiredo
 
 ## **Metodologia**
 
@@ -32,9 +32,11 @@ O journaling registra as operações realizadas antes que sejam aplicadas ao sis
 
 ### **Estrutura de Dados**
 - **Classes Java**: Foram utilizadas para representar os elementos do sistema de arquivos.
-    - **Classe Arquivo**: Representa os arquivos no sistema.
-    - **Classe Diretorio**: Representa os diretórios no sistema.
-    - **Mapa de Diretórios**: Utilizado para organizar e navegar pelos diretórios e arquivos.
+    - **Classe Arquivo**: Representa os arquivos no sistema, com atributos como nome e conteúdo.
+    - **Classe Diretorio**: Representa os diretórios no sistema, incluindo subdiretórios e arquivos contidos.
+    - **Classe SimuladorSistemaArquivos**: Gerencia todas as operações do sistema de arquivos, como criação, exclusão, e navegação.
+    - **Classe Shell**: Simula o ambiente de terminal, processando os comandos do usuário.
+    - **Classe Jornal**: Gerencia o registro de operações realizadas no sistema.
 
 ### **Journaling**
 O sistema implementa um log que registra todas as operações, como criar, apagar e copiar arquivos/diretórios. Isso é armazenado em um arquivo binário chamado `sistema.dat`.
@@ -48,7 +50,7 @@ O sistema implementa um log que registra todas as operações, como criar, apaga
 
 ## **Parte 3: Implementação em Java**
 
-### **Classe `FileSystemSimulator`**
+### **Classe `SimuladorSistemaArquivos`**
 Implementa o simulador do sistema de arquivos, contendo métodos para:
 - Criar, apagar e copiar arquivos.
 - Criar e apagar diretórios.
@@ -58,8 +60,8 @@ Implementa o simulador do sistema de arquivos, contendo métodos para:
 - **Classe Arquivo**: Representa os arquivos no sistema, com atributos como nome e conteúdo.
 - **Classe Diretorio**: Representa os diretórios, incluindo subdiretórios e arquivos contidos.
 
-### **Classe Journal**
-Gerencia o log de operações, garantindo que o sistema possa ser restaurado a partir do estado armazenado no `sistema.dat`.
+### **Classe `Shell`**
+Simula um terminal interativo onde o usuário pode executar comandos como `criar_diretorio`, `criar_arquivo`, `cd`, e outros.
 
 ---
 
@@ -71,15 +73,3 @@ Espera-se que o simulador forneça insights sobre o funcionamento de um sistema 
 - Navegação e manipulação de arquivos de forma prática.
 
 Com base nos resultados obtidos, poderemos avaliar e entender melhor como funciona esse elemento essencial de um sistema operacional.
-
----
-
-## **Entrega**
-
-A entrega no AVA deve conter:
-1. **Relatório em PDF**:
-   - Descreva o funcionamento do projeto e o propósito de cada funcionalidade.
-   - Explique as bibliotecas utilizadas e como elas contribuem para o sistema.
-
-2. **Link para o Projeto no GitHub**:
-   - Certifique-se de que o repositório contenha instruções claras para execução.
