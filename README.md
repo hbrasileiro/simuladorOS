@@ -36,7 +36,6 @@ O journaling registra as operações realizadas antes que sejam aplicadas ao sis
     - **Classe Diretorio**: Representa os diretórios no sistema, incluindo subdiretórios e arquivos contidos.
     - **Classe SimuladorSistemaArquivos**: Gerencia todas as operações do sistema de arquivos, como criação, exclusão, e navegação.
     - **Classe Shell**: Simula o ambiente de terminal, processando os comandos do usuário.
-    - **Classe Jornal**: Gerencia o registro de operações realizadas no sistema.
 
 ### **Journaling**
 O sistema implementa um log que registra todas as operações, como criar, apagar e copiar arquivos/diretórios. Isso é armazenado em um arquivo binário chamado `sistema.dat`.
@@ -65,6 +64,70 @@ Simula um terminal interativo onde o usuário pode executar comandos como `criar
 
 ---
 
+## **Parte 4: Como Executar o Código**
+
+### **1. Compilação**
+1. Certifique-se de que todos os arquivos Java (`SimuladorSistemaArquivos.java`, `Diretorio.java`, `Arquivo.java`, e `Shell.java`) estão na mesma pasta.
+2. Compile os arquivos com o seguinte comando:
+   ```bash
+   javac SimuladorSistemaArquivos.java Diretorio.java Arquivo.java Shell.java
+   ```
+
+### **2. Execução**
+Execute o programa com o seguinte comando:
+```bash
+java Shell
+```
+
+---
+
+## **Parte 5: Exemplos de Comandos**
+
+### **Criar Diretórios**
+```bash
+/ > criar_diretorio teste
+```
+Cria um diretório chamado `teste`.
+
+### **Criar Arquivos**
+```bash
+/ > criar_arquivo teste.txt
+```
+Cria um arquivo chamado `teste.txt` no diretório atual.
+
+### **Apagar Arquivos**
+```bash
+/ > apagar_arquivo teste.txt
+```
+Apaga o arquivo `teste.txt` do diretório atual.
+
+### **Copiar Arquivos**
+```bash
+/ > copiar_arquivo teste.txt /outro_diretorio
+```
+Copia o arquivo `teste.txt` para o diretório `/outro_diretorio`.
+
+### **Listar Diretórios**
+```bash
+/ > listar_diretorios
+```
+Lista todos os subdiretórios do diretório atual.
+
+### **Navegar Entre Diretórios**
+```bash
+/ > cd teste
+/teste > cd ..
+```
+Permite entrar no diretório `teste` e retornar ao diretório anterior.
+
+### **Limpar Tela**
+```bash
+/ > clear
+```
+Limpa a tela do terminal.
+
+---
+
 ## **Resultados Esperados**
 
 Espera-se que o simulador forneça insights sobre o funcionamento de um sistema de arquivos, como:
@@ -73,3 +136,5 @@ Espera-se que o simulador forneça insights sobre o funcionamento de um sistema 
 - Navegação e manipulação de arquivos de forma prática.
 
 Com base nos resultados obtidos, poderemos avaliar e entender melhor como funciona esse elemento essencial de um sistema operacional.
+
+---
